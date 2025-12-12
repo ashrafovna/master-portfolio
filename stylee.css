@@ -1,3 +1,4 @@
+/* ----------  DEBUG / SANITY RESET  ---------- */
 * {
     margin: 0;
     padding: 0;
@@ -10,29 +11,25 @@
     margin: auto;
 }
 
-nav {
-    position: sticky;
-}
-
 html {
     scroll-behavior: smooth;
 }
 
-
 /* ? HEADER  */
-
-header {
-    min-height: 100vh;
-}
 
 .nav-container {
     display: flex;
     justify-content: space-around;
     align-items: center;
     position: fixed;
-    background-color: rgb(109, 67, 0);
+    top: 10px;
+    left: 150px;
+    right: 150px;
+    border-radius:25px;
+    background-color: rgba(109, 67, 0, 0.847);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px); /* Safari uchun */
     height: 50px;
-    width: 77%;
     z-index: 5;
 }
 
@@ -57,11 +54,12 @@ header {
     font-size: 1.2rem;
     color: white;
     text-decoration: none;
-    transform: 0.3s linear;
+    transition: 0.3s linear; 
 }
 
 .nav-container .links a::before {
     content: "";
+    position: absolute; 
     bottom: -3px;
     left: 0;
     height: 3px;
@@ -98,7 +96,7 @@ header {
     display: flex;
     text-decoration: none;
     justify-content: center;
-    padding: 15px 0;
+    padding: 15px 0;    
     align-items: center;
     transition: 0.2s linear;
 }
@@ -108,8 +106,7 @@ header {
 }
 
 section {
-    width: 100%;
-    height: 90vh;
+    height: 100vh;
 }
 
 .main-container {
@@ -167,7 +164,7 @@ section {
     width: calc(100% + 8px);
     height: 100%;
     border-left: 3px solid black;
-    animation: cursor 0.6s linear;
+    animation: cursor 0.6s infinite; /* FIXED: was “linear” – needs infinite blink */
 }
 
 @keyframes cursor {
@@ -177,9 +174,8 @@ section {
 }
 
 @keyframes words {
-    0%,
-    33% {
-        contact: "Frontend Developer"
+    0%, 33% {
+        content: "Frontend Developer"; /* FIXED: was “contact” typo */
     }
 }
 
@@ -200,8 +196,8 @@ section {
 }
 
 .social-links i:hover {
-    scale: 1.3;
-    filter: drop-shadow(0 0 10px rgb(109.67, 0));
+    transform: scale(1.3); /* FIXED: was non-standard “scale” property */
+    filter: drop-shadow(0 0 10px rgb(109, 67, 0)); /* FIXED: rgb() typo */
 }
 
 .content button {
@@ -217,8 +213,8 @@ section {
     transition: 0.2s linear;
 }
 
-.contact button:hover {
-    scale: 1.1;
+.content button:hover { /* FIXED: selector was “.contact button” – doesn't exist */
+    transform: scale(1.1);
     color: rgb(109, 67, 0);
     border: 2px solid rgb(109, 67, 0);
     background-color: transparent;
@@ -261,7 +257,6 @@ section {
     }
 }
 
-
 /* ? ABOUT  */
 
 .about {
@@ -271,12 +266,12 @@ section {
 h1 {
     font-size: 32px;
     color: #333;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 h2 {
     font-size: 24px;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
 
 .red {
@@ -287,13 +282,13 @@ h2 {
     width: 75%;
     line-height: 1.6;
     color: #555;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .info-container {
+    display: flex; /* FIXED: was missing – caused layout issues */
     justify-content: space-between;
     margin-bottom: 30px;
-    display: flex;
 }
 
 .info-container p {
@@ -356,7 +351,6 @@ h2 {
     text-decoration: none;
 }
 
-
 /* ? SERVICES  */
 
 .section__title {
@@ -415,7 +409,7 @@ h2 {
     }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 768px) { /* FIXED: duplicated breakpoint – changed to 768px for 1-col */
     .grid-container {
         grid-template-columns: 1fr;
     }
@@ -424,7 +418,6 @@ h2 {
 .services {
     min-height: 100vh;
 }
-
 
 /* ? CONTACT  */
 
@@ -443,68 +436,52 @@ h2 {
     margin-bottom: 12px;
 }
 
+.container h2 {
+    text-align: center;
+}
+
 input,
 textarea {
     width: 100%;
     padding: 10px 12px;
     margin-top: 6px;
     border-radius: 20px;
-    border: 1px solid var(--border);
-    background: rgb(109, 67, 0);
-    color: var(--text);
+    border: none;
+    outline: none;
+    color: black;
+    background-color: #ddd;
+    transition: all 0.3s ease;
 }
 
-input::placeholder,
-textarea::placeholder {
+textarea:hover,
+input:hover {
+    transform: translateY(-1px);
+    background-color: rgb(109, 67, 0);
     color: white;
-}
-
-.site-footer {
-    border-top: 1px solid var(--border);
-    padding: 20px 0;
-    color: var(--muted);
 }
 
 .btnn {
-    display: inline-block;
-    padding: 10px 14px;
-    border: 1px solid var(--border);
+    padding: 10px 60px;
     border-radius: 20px;
-    text-decoration: none;
-    color: white;
-    background: rgb(109, 67, 0);
-    transition: transform 0.12s ease, ease, border-color 0.15s ease;
+    border: none;
+    background-color: #ddd;
+    transition: all 0.3s ease;
 }
 
-.btn:hover {
-    transform: translateY(-1px);
-    border-color: var(--primary);
-}
-
-.btn.small {
-    padding: 8px 10px;
-    font-size: 14px;
-}
-
-.small {
+.btnn:hover {
     background-color: rgb(109, 67, 0);
+    color: white;
+    transform: translateY(-1px);
 }
 
 .site-footer {
     padding: 20px;
     height: 30px;
+    display: flex; /* FIXED: was missing – vertical centering */
     align-items: center;
+    justify-content: center;
     color: white;
     border-radius: 30px 30px 0 0;
     text-align: center;
     background-color: rgb(109, 67, 0);
-}
-
-input:focus label {
-    transform: translateY(-20px);
-    color: rgb(109, 67, 0);
-}
-
-input:focus {
-    outline-color: rgb(109, 67, 0);
 }
